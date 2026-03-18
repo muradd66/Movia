@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #f8f9fa; /* Çox açıq və təmiz boz */
+    color: #1a1a1a;
+}
+
+/* Navbar */
+header {
+    padding: 25px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.logo-text {
+    font-size: 22px;
+    font-weight: 700;
+    color: #6366f1; /* Tək və canlı rəng (Indigo/Violet) */
+    letter-spacing: -0.5px;
+}
+
+.links a {
+    color: #64748b; /* Yumşaq boz */
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.links a:hover {
+    color: #6366f1; /* Hover zamanı tək rəng aktivləşir */
+}
+
+.person-add {
+    color: #6366f1;
+    cursor: pointer;
+    font-weight: 600;
+    background: rgba(99, 102, 241, 0.1); /* Çox şəffaf rəng fonu */
+    padding: 8px 16px;
+    border-radius: 12px;
+}
+
+/* Search Section */
+.search-container {
+    margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-input {
+    width: 450px;
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    padding: 16px 24px;
+    border-radius: 16px;
+    font-size: 16px;
+    color: #1a1a1a;
+    outline: none;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.search-input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.1);
+}
+
+button {
+    margin-top: 24px;
+    background-color: #6366f1;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #4f46e5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
