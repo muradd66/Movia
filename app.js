@@ -19,10 +19,12 @@ function showFilms(film) {
         let card = document.createElement("div")
         card.classList.add("card")
         let p = document.createElement("p")
+        p.classList.add("rating")
         let filmname = document.createElement("h3")
         let MoreBtn = document.createElement("button")
+        MoreBtn.innerHTML="More"
         MoreBtn.classList.add("moreBtn")
-        p.innerText = element.popularity
+        p.innerText = element.vote_average
         filmname.innerHTML = element.original_title
         let img = document.createElement("img")
         img.classList.add("film-img")
@@ -30,6 +32,7 @@ function showFilms(film) {
         card.append(img)
         card.append(filmname)
         card.append(p)
+        card.append(MoreBtn)
         films.append(card)
     });
 
