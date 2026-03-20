@@ -18,21 +18,32 @@ function showFilms(film) {
     film.forEach(element => {
         let card = document.createElement("div")
         card.classList.add("card")
-        let p = document.createElement("p")
-        p.classList.add("rating")
+
+        let film_info = document.createElement("div")
+        film_info.classList.add("film_info")
+
+        let rating = document.createElement("p")
+        rating.classList.add("rating")
+
+        let star = document.createElement("img")
+        star.src = "star.png"
+        star.classList.add("star")
+
         let filmname = document.createElement("h3")
         let MoreBtn = document.createElement("button")
-        MoreBtn.innerHTML="More"
+        MoreBtn.innerHTML = "More"
         MoreBtn.classList.add("moreBtn")
-        p.innerText = element.vote_average
+        rating.innerText = element.vote_average
         filmname.innerHTML = element.original_title
         let img = document.createElement("img")
         img.classList.add("film-img")
         img.src = `https://image.tmdb.org/t/p/w500${element.poster_path}`
         card.append(img)
         card.append(filmname)
-        card.append(p)
+        film_info.append(star, rating)
+        card.append(film_info)
         card.append(MoreBtn)
+
         films.append(card)
     });
 

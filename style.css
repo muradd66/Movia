@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: #0a0e1a;
+    background-color: #090d18;
     color: #ffffff;
 }
 
@@ -116,7 +116,7 @@ nav {
 
 
 .card {
-    background-color: #161d32;
+    background-color: #1a233b;
     transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
     overflow: hidden;
     border-radius: 12px;
@@ -125,8 +125,17 @@ nav {
 }
 
 .card h3 {
+    font-size: large;
+    /* margin-top: 20px; */
+    margin-left: 10px;
     color: #ffffff;
     margin-top: 10px;
+}
+
+.rating {
+    font-size: medium;
+    margin-left: 2px;
+    display: inline;
 }
 
 .card:hover {
@@ -136,10 +145,33 @@ nav {
 
 
 .moreBtn {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 20px;
     display: inline;
     background-color: #161d32;
     color: #6366f1;
-    border: 1px solid rgba(99, 102, 241, 0.5);
-    width: 10vw;
+    border: 2px solid rgba(99, 102, 241, 0.5);
+    width: 16vw;
     height: 2vw;
+    font-weight: bolder;
+}
+.moreBtn:hover{
+    background-color: #6366f1;
+    color: #ffffff;
+    border: 2px solid rgba(252, 252, 253, 0.5);
+
+}
+
+.film_info{
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: small;
+}
+
+.star{
+    /* margin-left: 10px;
+    margin-right: 2px; */
+    width: 1vw;
+    height: 1vw;
 }
