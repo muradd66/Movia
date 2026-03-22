@@ -101,6 +101,8 @@ nav {
 
 
 .film-container {
+    margin-left: 6vw;
+    margin-right: 6vw;
     gap: 15px;
     margin-top: 10vw;
     display: grid;
@@ -110,26 +112,30 @@ nav {
 
 .film-img {
     width: 100%;
-    height: 80vh;
+    height: 70vh;
     border-radius: 12px;
 }
 
 
 .card {
+    /* margin-left: 10px; */
     background-color: #1a233b;
     transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
     overflow: hidden;
     border-radius: 12px;
     border: 1px solid rgba(99, 102, 241, 0.5);
     box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+
 }
 
 .card h3 {
     font-size: large;
-    /* margin-top: 20px; */
     margin-left: 10px;
     color: #ffffff;
     margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .rating {
@@ -139,15 +145,14 @@ nav {
 }
 
 .card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-20px);
     box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
 
 .moreBtn {
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-bottom: 20px;
+    /* margin-left: 10px;
+    margin-bottom: 30px; */
     display: inline;
     background-color: #161d32;
     color: #6366f1;
@@ -156,22 +161,44 @@ nav {
     height: 2vw;
     font-weight: bolder;
 }
-.moreBtn:hover{
+
+.moreBtn:hover {
     background-color: #6366f1;
     color: #ffffff;
     border: 2px solid rgba(252, 252, 253, 0.5);
+    cursor: pointer;
 
 }
 
-.film_info{
+.film_info {
     margin-top: 10px;
     margin-left: 10px;
     font-size: small;
 }
 
-.star{
-    /* margin-left: 10px;
-    margin-right: 2px; */
+.star {
     width: 1vw;
     height: 1vw;
 }
+
+.bi-heart {
+    color: #6366f1;
+    font-size: 24px;
+
+}
+
+.bi-heart:hover {
+    cursor: pointer;
+
+}
+
+.btnContainer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+/* film adlarini 3 noqte ile qisalt adini balaca sriftle altdan yaz */

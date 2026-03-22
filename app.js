@@ -26,24 +26,37 @@ function showFilms(film) {
         rating.classList.add("rating")
 
         let star = document.createElement("img")
-        star.src = "star.png"
+        star.src = "images_and_logos/star.png"
         star.classList.add("star")
 
         let filmname = document.createElement("h3")
         let MoreBtn = document.createElement("button")
+        let btnContainer = document.createElement("div")
+        btnContainer.classList.add("btnContainer")
+
+        let favBtn = document.createElement("i")
+        // favBtn.src="images_and_logos/heart.png"
+        favBtn.classList.add("bi", "bi-heart")
+
         MoreBtn.innerHTML = "More"
         MoreBtn.classList.add("moreBtn")
+
         rating.innerText = element.vote_average
         filmname.innerHTML = element.original_title
+
         let img = document.createElement("img")
         img.classList.add("film-img")
         img.src = `https://image.tmdb.org/t/p/w500${element.poster_path}`
+
         card.append(img)
         card.append(filmname)
         film_info.append(star, rating)
         card.append(film_info)
-        card.append(MoreBtn)
-
+        btnContainer.append(MoreBtn)
+        // card.append(MoreBtn)
+        btnContainer.append(favBtn)
+        // card.append(favBtn)
+        card.append(btnContainer)
         films.append(card)
     });
 
