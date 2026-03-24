@@ -29,14 +29,26 @@ function showFilms(film) {
         star.src = "images_and_logos/star.png"
         star.classList.add("star")
 
-        let filmname = document.createElement("h3")
+        let filmname = document.createElement("h2")
+        filmname.classList.add("filmname")
         let MoreBtn = document.createElement("button")
+
+
         let btnContainer = document.createElement("div")
         btnContainer.classList.add("btnContainer")
 
+
         let favBtn = document.createElement("i")
-        // favBtn.src="images_and_logos/heart.png"
         favBtn.classList.add("bi", "bi-heart")
+        favBtn.addEventListener("mouseover", () => {
+            favBtn.classList.remove("bi-heart")
+            favBtn.classList.add("bi-heart-fill")
+        })
+
+        favBtn.addEventListener("mouseout", () => {
+            favBtn.classList.remove("bi-heart-fill")
+            favBtn.classList.add("bi-heart")
+        })
 
         MoreBtn.innerHTML = "More"
         MoreBtn.classList.add("moreBtn")
@@ -53,9 +65,7 @@ function showFilms(film) {
         film_info.append(star, rating)
         card.append(film_info)
         btnContainer.append(MoreBtn)
-        // card.append(MoreBtn)
         btnContainer.append(favBtn)
-        // card.append(favBtn)
         card.append(btnContainer)
         films.append(card)
     });

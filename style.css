@@ -13,16 +13,31 @@ body {
 }
 
 nav {
-    margin-left: 25vw;
-    padding: 25px 5%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    height: 10vh;
+    background-color: #101524;
 }
 
 .links {
     display: flex;
     align-items: center;
     gap: 35px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-name {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(to right, #a855f7, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .logo {
@@ -46,16 +61,24 @@ nav {
 }
 
 .person-add {
+    display: inline-block;
     color: #6f71fb;
     cursor: pointer;
     font-weight: 600;
     background: rgba(99, 102, 241, 0.1);
     padding: 8px 16px;
     border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.person-add:hover {
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+    transform: scale(1.05);
+    cursor: pointer;
 }
 
 .search-container {
-    margin-top: 30px;
+    margin-top: 10vw;
     align-items: center;
     display: flex;
     justify-content: center;
@@ -113,12 +136,13 @@ nav {
 .film-img {
     width: 100%;
     height: 70vh;
-    border-radius: 12px;
 }
 
 
+
 .card {
-    /* margin-left: 10px; */
+    display: flex;
+    flex-direction: column;
     background-color: #1a233b;
     transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
     overflow: hidden;
@@ -128,7 +152,7 @@ nav {
 
 }
 
-.card h3 {
+.card h2 {
     font-size: large;
     margin-left: 10px;
     color: #ffffff;
@@ -137,6 +161,8 @@ nav {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+
 
 .rating {
     font-size: medium;
@@ -151,8 +177,6 @@ nav {
 
 
 .moreBtn {
-    /* margin-left: 10px;
-    margin-bottom: 30px; */
     display: inline;
     background-color: #161d32;
     color: #6366f1;
@@ -177,20 +201,26 @@ nav {
 }
 
 .star {
+    letter-spacing: normal;
     width: 1vw;
     height: 1vw;
 }
 
 .bi-heart {
     color: #6366f1;
-    font-size: 24px;
-
+    font-size: 26px;
 }
 
-.bi-heart:hover {
+.bi-heart-fill {
+    color: #6366f1;
+    font-size: 26px;
+}
+
+/* .bi-heart:hover {
     cursor: pointer;
+    display: none;
 
-}
+} */
 
 .btnContainer {
     display: flex;
