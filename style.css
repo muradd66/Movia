@@ -7,17 +7,32 @@
     font-family: 'Inter', sans-serif;
 }
 
+
 body {
-    background-color: #090d18;
     color: #ffffff;
+    background: radial-gradient(circle at top right, #1e1b4b, #020617);
+    background-color: #020617;
+    background-image:
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.1) 0px, transparent 50%);
+    background-attachment: fixed;
+    min-height: 100vh;
 }
+
 
 nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 10vh;
-    background-color: #101524;
+    height: 80px;
+    background: rgba(10, 15, 28, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0 5%;
 }
 
 .links {
@@ -49,57 +64,70 @@ nav {
 }
 
 .links a {
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     font-size: 15px;
     font-weight: 500;
-    transition: 0.2s;
+    transition: all 0.3s ease;
+    margin: 0 15px;
 }
+
+
 
 .links a:hover {
     color: #6366f1;
+    text-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
 }
 
 .person-add {
-    display: inline-block;
-    color: #6f71fb;
-    cursor: pointer;
-    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
     background: rgba(99, 102, 241, 0.1);
-    padding: 8px 16px;
-    border-radius: 12px;
-    transition: transform 0.3s ease;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 100px;
+    color: #a5b4fc;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(5px);
 }
+
 
 .person-add:hover {
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
-    transform: scale(1.05);
-    cursor: pointer;
+    background: #6366f1;
+    color: white;
+    border-color: #6366f1;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    transform: translateY(-2px);
 }
 
+
 .search-container {
-    margin-top: 10vw;
-    align-items: center;
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 50px;
+}
+
+.content {
+    flex: 1;
 }
 
 .search-input {
-    width: 35vw;
-    background: #ffffff;
-    border: 2px solid #e2e8f0;
-    padding: 16px 24px;
-    border-radius: 16px;
-    font-size: 16px;
-    color: #1a1a1a;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: white;
+    height: 48px;
+    padding: 0 15px;
+    font-size: 14px;
     outline: none;
-    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-}
-
-.search-input:focus {
-    border-color: #6366f1;
-    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.1);
+    transition: border-color 0.2s;
+    width: 350px;
 }
 
 
@@ -135,100 +163,137 @@ nav {
 
 .film-img {
     width: 100%;
-    height: 70vh;
+    aspect-ratio: 2/3;
+    object-fit: cover;
 }
 
 
 
 .card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.4s ease;
     display: flex;
     flex-direction: column;
-    background-color: #1a233b;
-    transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-    overflow: hidden;
-    border-radius: 12px;
-    border: 1px solid rgba(99, 102, 241, 0.5);
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
 
 }
 
-.card h2 {
-    font-size: large;
-    margin-left: 10px;
-    color: #ffffff;
-    margin-top: 10px;
+
+
+.filmname {
+    font-size: 16px;
+    padding: 15px 15px 5px 15px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 
-
 .rating {
-    font-size: medium;
-    margin-left: 2px;
-    display: inline;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .card:hover {
-    transform: translateY(-20px);
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    transform: translateY(-10px);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+
 }
 
 
 .moreBtn {
-    display: inline;
-    background-color: #161d32;
-    color: #6366f1;
-    border: 2px solid rgba(99, 102, 241, 0.5);
-    width: 16vw;
-    height: 2vw;
-    font-weight: bolder;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 6px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.3s;
 }
 
 .moreBtn:hover {
-    background-color: #6366f1;
-    color: #ffffff;
-    border: 2px solid rgba(252, 252, 253, 0.5);
-    cursor: pointer;
+    background: white;
+    color: black;
 
 }
 
 .film_info {
-    margin-top: 10px;
-    margin-left: 10px;
-    font-size: small;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 15px;
 }
+
 
 .star {
-    letter-spacing: normal;
-    width: 1vw;
-    height: 1vw;
+    width: 14px;
+    height: 14px;
 }
 
-.bi-heart {
-    color: #6366f1;
-    font-size: 26px;
-}
 
+.bi-heart,
 .bi-heart-fill {
-    color: #6366f1;
-    font-size: 26px;
-}
-
-/* .bi-heart:hover {
+    color: #ef4444;
+    font-size: 18px;
     cursor: pointer;
-    display: none;
-
-} */
+}
 
 .btnContainer {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 15px;
-    margin-left: 10px;
-    margin-top: 20px;
-    margin-bottom: 40px;
+    padding: 15px;
+    margin-top: auto;
+    margin-bottom: 20px;
+
 }
 
-/* film adlarini 3 noqte ile qisalt adini balaca sriftle altdan yaz */
+main {
+    display: flex;
+}
+
+.select-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.select-genre {
+    width: 200px;
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 35px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: white;
+    height: 48px;
+    padding: 0 15px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.search-input:focus,
+.select-container select:focus {
+    border-color: #6366f1;
+}
+
+.select-icon {
+    position: absolute;
+    right: 12px;
+    pointer-events: none;
+    color: #6366f1;
+    font-size: 12px;
+}
+
+.select-container select option {
+    background-color: #101524;
+    color: white;
+    padding: 12px;
+}

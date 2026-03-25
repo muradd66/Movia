@@ -71,3 +71,25 @@ function showFilms(film) {
     });
 
 }
+
+window.addEventListener("load", getGenres)
+
+function getGenres() {
+    fetch("https://api.themoviedb.org/3/genre/movie/list?api_key=14f70647643cfc65b7633986a74d806e&language=en")
+        .then(res => res.json())
+        .then(response => {
+            console.log(response.genres)
+            renderGenres(response.genres)
+        })
+}
+
+let sidebar = document.querySelector(".sidebar")
+let searchContainer = document.querySelector(".search-container")
+let selection=document.querySelector("select")
+function renderGenres(genre) {
+    genre.forEach(element => {
+        let genreOpt = document.createElement("option")
+        genreOpt.innerText = element.name
+        selection.append(genreOpt)
+    })
+}
