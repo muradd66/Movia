@@ -2,11 +2,11 @@ let searchBtn = document.querySelector(".search-button")
 let searchInput = document.querySelector(".search-input")
 let films = document.querySelector(".film-container")
 function search() {
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=14f70647643cfc65b7633986a74d806e&query=${searchInput.value}&language=az&page=1`)
+    fetch(`https://api.themoviedb.org/3/search/movie?api_key=14f70647643cfc65b7633986a74d806e&query=${searchInput.value}&language=az&page=${currentPage}`)
         .then(response => response.json())
         .then(res => {
             console.log(res.results)
-            console.log(res.results)
+            // console.log(res.results)
             films.innerHTML = ""
             showFilms(res.results)
 
@@ -85,11 +85,65 @@ function getGenres() {
 
 let sidebar = document.querySelector(".sidebar")
 let searchContainer = document.querySelector(".search-container")
-let selection=document.querySelector("select")
-function renderGenres(genre) {
-    genre.forEach(element => {
-        let genreOpt = document.createElement("option")
-        genreOpt.innerText = element.name
-        selection.append(genreOpt)
+let selectGenre = document.querySelector(".select-genre");
+let optionsList = document.querySelector(".options-list");
+
+selectGenre.addEventListener("click", () => {
+    optionsList.classList.toggle("show")
+})
+
+let genresId = null
+
+function renderGenres(genres) {
+    optionsList.innerHTML = "";
+
+    genres.forEach(genre => {
+        let genreOpt = document.createElement("div")
+        genreOpt.innerText = genre.name
+        genreOpt.dataset.id = genre.id
+        genreOpt.addEventListener("click", () => {
+            genresId = genre.id
+            let valueGenre = selectGenre.querySelector("span")
+            valueGenre.innerHTML = genre.name
+            optionsList.classList.remove("show")
+
+            getMovies(genre.id, currentPage)
+        })
+
+
+        optionsList.append(genreOpt)
     })
 }
+
+
+function getMovies(genreId, page) {
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=14f70647643cfc65b7633986a74d806e&with_genres=${genreId}&language=en&page=${page}`)
+        .then(response => response.json())
+        .then(res => {
+            films.innerHTML = ""
+            showFilms(res.results)
+        })
+}
+
+let currentPage = 1
+
+let prevBtn = document.querySelector(".prevBtn")
+let nextBtn = document.querySelector(".nextBtn")
+let pageNumber = document.querySelector(".pageNumber")
+
+pageNumber.innerHTML = `Page: ${currentPage}`
+
+// function changePage() {
+//     pageNumber.innerHTML = `Page: ${currentPage}`
+//     fetch()
+
+
+
+// }
+
+nextBtn.addEventListener("click", () => {
+
+    currentPage = currentPage + 1
+    pageNumber.innerHTML = `Page: ${currentPage}`
+    // getMovies(genresId, currentPage)
+})
