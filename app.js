@@ -1,6 +1,15 @@
 let searchBtn = document.querySelector(".search-button")
 let searchInput = document.querySelector(".search-input")
 let films = document.querySelector(".film-container")
+let sidebar = document.querySelector(".sidebar")
+let searchContainer = document.querySelector(".search-container")
+let selectGenre = document.querySelector(".select-genre");
+let optionsList = document.querySelector(".options-list");
+let genresId = null
+let currentPage = 1
+let prevBtn = document.querySelector(".prevBtn")
+let nextBtn = document.querySelector(".nextBtn")
+let pageNumber = document.querySelector(".pageNumber")
 function search() {
     fetch(`https://api.themoviedb.org/3/search/movie?api_key=14f70647643cfc65b7633986a74d806e&query=${searchInput.value}&language=az&page=${currentPage}`)
         .then(response => response.json())
@@ -74,6 +83,18 @@ function showFilms(film) {
 
 window.addEventListener("load", getGenres)
 
+function getPopular(page) {
+    films.innerHTML = ""
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=14f70647643cfc65b7633986a74d806e&language=en&page=${page}`)
+        .then(res => res.json())
+        .then(response => {
+            console.log(response.results)
+            showFilms(response.results)
+        })
+}
+
+getPopular(currentPage)
+
 function getGenres() {
     fetch("https://api.themoviedb.org/3/genre/movie/list?api_key=14f70647643cfc65b7633986a74d806e&language=en")
         .then(res => res.json())
@@ -83,16 +104,10 @@ function getGenres() {
         })
 }
 
-let sidebar = document.querySelector(".sidebar")
-let searchContainer = document.querySelector(".search-container")
-let selectGenre = document.querySelector(".select-genre");
-let optionsList = document.querySelector(".options-list");
 
 selectGenre.addEventListener("click", () => {
     optionsList.classList.toggle("show")
 })
-
-let genresId = null
 
 function renderGenres(genres) {
     optionsList.innerHTML = "";
@@ -115,7 +130,6 @@ function renderGenres(genres) {
     })
 }
 
-
 function getMovies(genreId, page) {
     fetch(`https://api.themoviedb.org/3/discover/movie?api_key=14f70647643cfc65b7633986a74d806e&with_genres=${genreId}&language=en&page=${page}`)
         .then(response => response.json())
@@ -125,25 +139,41 @@ function getMovies(genreId, page) {
         })
 }
 
-let currentPage = 1
-
-let prevBtn = document.querySelector(".prevBtn")
-let nextBtn = document.querySelector(".nextBtn")
-let pageNumber = document.querySelector(".pageNumber")
-
 pageNumber.innerHTML = `Page: ${currentPage}`
+prevBtn.disabled = true
 
-// function changePage() {
-//     pageNumber.innerHTML = `Page: ${currentPage}`
-//     fetch()
+prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+        currentPage = currentPage - 1
+        pageNumber.innerHTML = `Page: ${currentPage}`
+        if (genresId) {
+            getMovies(genresId, currentPage)
 
+        }
+        else {
+            getPopular(currentPage)
+        }
+    }
+    if (currentPage === 1) {
+        prevBtn.disabled = true
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' })
 
-
-// }
+})
 
 nextBtn.addEventListener("click", () => {
 
     currentPage = currentPage + 1
     pageNumber.innerHTML = `Page: ${currentPage}`
-    // getMovies(genresId, currentPage)
+
+    if (genresId) {
+        getMovies(genresId, currentPage)
+    }
+    else {
+        getPopular(currentPage)
+    }
+    if (currentPage > 1) {
+        prevBtn.disabled = false
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' })
 })
