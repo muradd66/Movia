@@ -11,6 +11,12 @@ let prevBtn = document.querySelector(".prevBtn")
 let nextBtn = document.querySelector(".nextBtn")
 let pageNumber = document.querySelector(".pageNumber")
 function search() {
+    genresId = null
+    currentPage = 1
+    pageNumber.innerHTML = `Page: ${currentPage}`
+    if (currentPage == 1) {
+        prevBtn.disabled = true
+    }
     fetch(`https://api.themoviedb.org/3/search/movie?api_key=14f70647643cfc65b7633986a74d806e&query=${searchInput.value}&language=az&page=${currentPage}`)
         .then(response => response.json())
         .then(res => {
@@ -88,8 +94,9 @@ function getPopular(page) {
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=14f70647643cfc65b7633986a74d806e&language=en&page=${page}`)
         .then(res => res.json())
         .then(response => {
-            console.log(response.results)
             showFilms(response.results)
+            pageNumber.innerHTML = `Page: ${page}`
+
         })
 }
 
@@ -117,6 +124,12 @@ function renderGenres(genres) {
         genreOpt.innerText = genre.name
         genreOpt.dataset.id = genre.id
         genreOpt.addEventListener("click", () => {
+            searchInput.value = ""
+            currentPage = 1
+            pageNumber.innerHTML = `Page: ${currentPage}`
+            if (currentPage == 1) {
+                prevBtn.disabled = true
+            }
             genresId = genre.id
             let valueGenre = selectGenre.querySelector("span")
             valueGenre.innerHTML = genre.name
@@ -146,15 +159,17 @@ prevBtn.addEventListener("click", () => {
     if (currentPage > 1) {
         currentPage = currentPage - 1
         pageNumber.innerHTML = `Page: ${currentPage}`
-        if (genresId) {
-            getMovies(genresId, currentPage)
 
-        }
-        else {
-            getPopular(currentPage)
+
+        if (searchInput.value !== "") {
+            search(); // Axtarışın əvvəlki səhifəsi
+        } else if (genresId) {
+            getMovies(genresId, currentPage) // Janrın əvvəlki səhifəsi
+        } else {
+            getPopular(currentPage) // Populyar filmlərin əvvəlki səhifəsi
         }
     }
-    if (currentPage === 1) {
+    if (currentPage == 1) {
         prevBtn.disabled = true
     }
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -166,14 +181,14 @@ nextBtn.addEventListener("click", () => {
     currentPage = currentPage + 1
     pageNumber.innerHTML = `Page: ${currentPage}`
 
-    if (genresId) {
+    if (searchInput.value !== "") {
+        search();
+    } else if (genresId) {
         getMovies(genresId, currentPage)
-    }
-    else {
+    } else {
         getPopular(currentPage)
     }
-    if (currentPage > 1) {
-        prevBtn.disabled = false
-    }
+
+    prevBtn.disabled = false
     window.scrollTo({ top: 0, behavior: 'smooth' })
 })
