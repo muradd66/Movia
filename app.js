@@ -10,6 +10,7 @@ let currentPage = 1
 let prevBtn = document.querySelector(".prevBtn")
 let nextBtn = document.querySelector(".nextBtn")
 let pageNumber = document.querySelector(".pageNumber")
+let paginationContainer = document.querySelector(".pagination-container")
 function search() {
     genresId = null
     currentPage = 1
@@ -17,14 +18,35 @@ function search() {
     if (currentPage == 1) {
         prevBtn.disabled = true
     }
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=14f70647643cfc65b7633986a74d806e&query=${searchInput.value}&language=az&page=${currentPage}`)
+    fetch(`https://api.themoviedb.org/3/search/movie?api_key=14f70647643cfc65b7633986a74d806e&query=${searchInput.value}&language=en&page=${currentPage}`)
         .then(response => response.json())
         .then(res => {
-            console.log(res.results)
-            // console.log(res.results)
-            films.innerHTML = ""
-            showFilms(res.results)
+            if (res.results.length == 0) {
+                films.innerHTML = ""
+                paginationContainer.style.display = "none"
 
+                let noResults = document.createElement("div")
+                noResults.classList.add("noResults")
+
+                let icon = document.createElement("i")
+                icon.classList.add("bi", "bi-search-heart", "no-results-icon")
+
+                let title = document.createElement("h2")
+                title.classList.add("no-results-title")
+                title.innerText = "Oops! Our movie scouts couldn't find that."
+
+                let description = document.createElement("p")
+                description.classList.add("no-results-text")
+                description.innerText = "Try checking the spelling or searching for another blockbuster!"
+
+                noResults.append(icon, title, description)
+                films.append(noResults)
+            }
+            else {
+                paginationContainer.style.display = "flex"
+                films.innerHTML = ""
+                showFilms(res.results)
+            }
         })
 }
 searchBtn.addEventListener("click", search)
@@ -47,7 +69,11 @@ function showFilms(film) {
         let filmname = document.createElement("h2")
         filmname.classList.add("filmname")
         let MoreBtn = document.createElement("button")
+        MoreBtn.classList.add("MoreBtn")
 
+        MoreBtn.addEventListener("click", () => {
+            movieDetails(element.id)
+        })
 
         let btnContainer = document.createElement("div")
         btnContainer.classList.add("btnContainer")
@@ -161,12 +187,12 @@ prevBtn.addEventListener("click", () => {
         pageNumber.innerHTML = `Page: ${currentPage}`
 
 
-        if (searchInput.value !== "") {
-            search(); // Axtarışın əvvəlki səhifəsi
+        if (searchInput.value.trim() !== "") {
+            search()
         } else if (genresId) {
-            getMovies(genresId, currentPage) // Janrın əvvəlki səhifəsi
+            getMovies(genresId, currentPage)
         } else {
-            getPopular(currentPage) // Populyar filmlərin əvvəlki səhifəsi
+            getPopular(currentPage)
         }
     }
     if (currentPage == 1) {
@@ -181,7 +207,7 @@ nextBtn.addEventListener("click", () => {
     currentPage = currentPage + 1
     pageNumber.innerHTML = `Page: ${currentPage}`
 
-    if (searchInput.value !== "") {
+    if (searchInput.value.trim() !== "") {
         search();
     } else if (genresId) {
         getMovies(genresId, currentPage)
@@ -192,3 +218,91 @@ nextBtn.addEventListener("click", () => {
     prevBtn.disabled = false
     window.scrollTo({ top: 0, behavior: 'smooth' })
 })
+
+let details = document.querySelector(".movie-details")
+let detailContainer = document.querySelector(".detail-container")
+let closeBtn = document.querySelector(".close-btn")
+
+function movieDetails(movieId) {
+    details.style.display = "flex"
+    detailContainer.innerHTML = "Loading..."
+
+    fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=14f70647643cfc65b7633986a74d806e&append_to_response=videos,credits&language=en`)
+        .then(res => res.json())
+        .then(response => {
+            console.log(response)
+            detailContainer.innerHTML = ""
+
+            const trailer = response.videos.results.find(v => v.type === "Trailer" && v.site === "YouTube")
+
+            let leftContent; // Bu dəyişən ya poster, ya da video olacaq
+
+            if (trailer) {
+                // Əgər trailer varsa, iframe yaradırıq
+                leftContent = document.createElement("iframe");
+                leftContent.src = `https://www.youtube.com/embed/${trailer.key}?autoplay=1`
+                leftContent.width = "400px"
+                leftContent.height = "250px"
+                leftContent.classList.add("detail-trailer-video")
+                leftContent.allowFullscreen = true
+                leftContent.style.border = "none"
+                leftContent.style.borderRadius = "12px"
+            } else {
+                leftContent = document.createElement("img")
+                leftContent.src = `https://image.tmdb.org/t/p/w500${response.poster_path}`
+                leftContent.classList.add("detail-poster")
+            }
+            let infoDiv = document.createElement("div")
+            infoDiv.classList.add("detail-info")
+
+            let title = document.createElement("h2")
+            title.innerText = response.title
+
+            let filmHistory = document.createElement("p")
+            filmHistory.classList.add("filmHistory")
+            filmHistory.innerText = `${response.release_date} • ${response.runtime} min • ⭐ ${response.vote_average.toFixed(1)}`
+
+            let castTitle = document.createElement("h3")
+            castTitle.innerText = "Top Cast"
+
+            let castContainer = document.createElement("div")
+            castContainer.classList.add("cast-container")
+
+            response.credits.cast.slice(0, 6).forEach(actor => {
+                let actorCard = document.createElement("div")
+                actorCard.classList.add("actor-card")
+
+                let actorImg = document.createElement("img")
+                actorImg.src = actor.profile_path
+                    ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
+                    : "https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe577334cbf30f003e13a46340a1bd5e3c63599a508c655655241AD77494b8.svg";
+
+                let actorName = document.createElement("p")
+                actorName.innerText = actor.name
+                actorName.classList.add("actor-name")
+
+                let characterName = document.createElement("p")
+                characterName.innerText = actor.character
+                characterName.classList.add("character-name")
+
+                actorCard.append(actorImg, actorName, characterName)
+                castContainer.append(actorCard)
+            });
+
+
+
+            let overviewTitle = document.createElement("h3")
+            overviewTitle.innerText = "Overview"
+
+            let overview = document.createElement("p")
+            overview.innerText = response.overview || "No description available."
+            overview.classList.add("detail-overview")
+
+            infoDiv.append(title, filmHistory, overviewTitle, overview, castTitle, castContainer)
+            detailContainer.append(leftContent, infoDiv)
+        })
+        .catch(err => {
+            detailContainer.innerHTML = "Xəta baş verdi məlumat yüklənərkən."
+            console.error(err)
+        });
+}

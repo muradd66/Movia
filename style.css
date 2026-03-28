@@ -126,16 +126,7 @@ nav {
     height: 48px;
     font-size: 14px;
     transition: all 0.2s ease;
-    /* background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    color: white;
-    height: 48px;
-    padding: 0 15px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-    width: 350px; */
+
 }
 
 .search-input {
@@ -359,8 +350,226 @@ main {
     color: #a5b4fc;
 }
 
+.noResults {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 60px;
+    width: 100%;
+}
+
+.no-results-icon {
+    font-size: 64px;
+    color: #6366f1;
+    margin-bottom: 20px;
+}
+
+.no-results-title {
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-family: sans-serif;
+}
+
+.no-results-text {
+    font-size: 16px;
+    color: #94a3b8;
+    max-width: 450px;
+    line-height: 24px;
+    margin-bottom: 30px;
+}
 
 
+.no-results-btn {
+    padding: 12px 24px;
+    background-color: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.no-results-btn:hover {
+    background-color: #4f46e5;
+}
+
+/* Arxa fon (Overlay) */
+/* Modal Arxa Fon */
+.movie-details {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Pəncərəsi */
+.details-content {
+    background-color: #1a1a1a;
+    width: 850px;
+    max-height: 90vh;
+    
+    border-radius: 12px;
+    position: relative;
+    padding: 30px;
+    overflow-y: auto;
+    color: white;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 35px;
+    cursor: pointer;
+    color: #6366f1;
+    transition: 0.2s;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: #a5b4fc;
+    transform: scale(1.1);
+}
+
+.detail-container {
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    align-items: flex-start;
+}
+
+.detail-poster {
+    width: 300px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+}
+
+.detail-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.detail-info h2 {
+    font-size: 32px;
+    color: #ffffff;
+    margin: 0;
+    font-weight: 600;
+}
+
+.filmHistory {
+    font-size: 16px;
+    color: #94a3b8;
+    margin: 0;
+    font-weight: 500;
+}
+
+.detail-info h3 {
+    font-size: 20px;
+    color: #6366f1;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.detail-overview {
+    font-size: 16px;
+    line-height: 26px;
+    color: #cbd5e1;
+    margin: 0;
+}
+
+.trailer-container {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.trailer-container iframe {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
 
 
+/* Aktyorların ana konteyneri */
+.cast-container {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    /* Çox aktyor olsa sağa sürüşsün */
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
 
+/* Hər bir aktyor kartı */
+.actor-card {
+    min-width: 100px;
+    text-align: center;
+}
+
+.actor-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    /* Dairəvi şəkil */
+    object-fit: cover;
+    margin-bottom: 8px;
+    border: 2px solid #6366f1;
+    /* Movia rəngində haşiyə */
+}
+
+.actor-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+.character-name {
+    font-size: 11px;
+    color: #94a3b8;
+    margin: 2px 0 0 0;
+}
+
+/* Scrollbar-ı gözəlləşdirək (isteğe bağlı) */
+.cast-container::-webkit-scrollbar {
+    height: 4px;
+}
+
+.cast-container::-webkit-scrollbar-thumb {
+    background: #6366f1;
+    border-radius: 10px;
+}
+.detail-left-side {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.detail-left-side .cast-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 aktyor yan-yana */
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.detail-left-side .actor-card img {
+    width: 70px; /* Trailer-in altında daha yaxşı yerləşməsi üçün bir az kiçiltdik */
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
